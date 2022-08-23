@@ -45,11 +45,17 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "django.contrib.gis",
 ]
 
-THIRD_PART_APPS = ["rest_framework", "drf_spectacular", "corsheaders"]
+THIRD_PART_APPS = [
+    "rest_framework",
+    "drf_spectacular",
+    "corsheaders",
+    # "rest_framework_gis",
+]
 
-MY_APPS = []
+MY_APPS = ["losses"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + MY_APPS
 
@@ -99,6 +105,7 @@ WSGI_APPLICATION = "base_project.wsgi.application"
 
 DATABASES = {
     "default": {
+        # "ENGINE": "django.contrib.gis.db.backends.postgis",
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("POSTGRES_DB"),
         "USER": os.getenv("POSTGRES_USER"),
@@ -136,11 +143,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+# LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "UTC"
 
 USE_I18N = True
+
+# USE_L10N = False
 
 USE_TZ = True
 
@@ -156,6 +166,8 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
+    "DATE_INPUT_FORMATS": ["%d/%m/%Y"],
+    "DATE_FORMAT": "%d/%m/%Y",
     "DEFAULT_PAGINATION_CLASS": (
         "rest_framework.pagination.PageNumberPagination"
     ),
