@@ -143,10 +143,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-# LANGUAGE_CODE = "en-us"
-LANGUAGE_CODE = "pt-br"
+LANGUAGE_CODE = "en-us"
+# LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Etc/GMT+3"
 
 USE_I18N = True
 
@@ -166,10 +166,15 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DATE_INPUT_FORMATS": ["%d/%m/%Y"],
     "DATE_FORMAT": "%d/%m/%Y",
+    "DATE_INPUT_FORMATS": ["%d/%m/%Y"],
+    "DATETIME_FORMAT": "%d/%m/%Y %H:%M:%S",
+    "DATETIME_INPUT_FORMATS": ["%d/%m/%Y %H:%M:%S"],
+    # "DEFAULT_PAGINATION_CLASS": (
+    #     "rest_framework.pagination.PageNumberPagination"
+    # ),
     "DEFAULT_PAGINATION_CLASS": (
-        "rest_framework.pagination.PageNumberPagination"
+        "base_project.pagination.CustomPaginationClass"
     ),
     "PAGE_SIZE": 10,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",

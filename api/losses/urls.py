@@ -1,8 +1,13 @@
 from django.urls import path
 
-from .views import ListCreateLossView, RetrieveUpdateDestroyLossView
+from .views import (
+    ListByCPFApiView,
+    ListCreateLossView,
+    RetrieveUpdateDestroyLossView,
+)
 
 urlpatterns = [
-    path("losses/", ListCreateLossView.as_view()),
-    path("losses/<pk>/", RetrieveUpdateDestroyLossView.as_view()),
+    path("perdas/", ListCreateLossView.as_view()),
+    path("perdas/filtro/", ListByCPFApiView.as_view()),
+    path("perdas/<pk>/", RetrieveUpdateDestroyLossView.as_view()),
 ]

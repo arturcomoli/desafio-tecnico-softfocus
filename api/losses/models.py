@@ -28,6 +28,7 @@ class Loss(models.Model):
         max_length=20, choices=LossChoices.choices
     )
     localizacao = models.JSONField()
+    criado_em = models.DateTimeField(auto_now_add=True)
 
     def save(
         self,
@@ -36,9 +37,6 @@ class Loss(models.Model):
         *args,
         **kwargs,
     ):
-        import ipdb
-
-        ipdb.set_trace()
         self.nome = self.nome.upper()
         self.email = self.email.lower()
         self.tipo_lavoura = self.tipo_lavoura.upper()
