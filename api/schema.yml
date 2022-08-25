@@ -1,0 +1,350 @@
+openapi: 3.0.3
+info:
+  title: Desafio Técnico Softfocus
+  version: 1.0.0
+paths:
+  /api/perdas/:
+    get:
+      operationId: api_perdas_list
+      parameters:
+      - in: query
+        name: causa_da_perda
+        schema:
+          type: string
+          enum:
+          - CHUVA EXCESSIVA
+          - GEADA
+          - GRANIZO
+          - RAIO
+          - SECA
+          - VENDAVAL
+      - in: query
+        name: cpf
+        schema:
+          type: string
+      - in: query
+        name: criado_em
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: data
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: data_colheita
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: email
+        schema:
+          type: string
+      - in: query
+        name: latitude
+        schema:
+          type: number
+      - in: query
+        name: longitude
+        schema:
+          type: number
+      - in: query
+        name: nome
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: tipo_lavoura
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLossList'
+          description: ''
+    post:
+      operationId: api_perdas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loss'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Loss'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Loss'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loss'
+          description: ''
+  /api/perdas/id/{id}/:
+    get:
+      operationId: api_perdas_id_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this loss.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loss'
+          description: ''
+    put:
+      operationId: api_perdas_id_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this loss.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loss'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Loss'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Loss'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loss'
+          description: ''
+    patch:
+      operationId: api_perdas_id_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this loss.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLoss'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLoss'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLoss'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loss'
+          description: ''
+    delete:
+      operationId: api_perdas_id_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this loss.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    CausaDaPerdaEnum:
+      enum:
+      - CHUVA EXCESSIVA
+      - GEADA
+      - GRANIZO
+      - SECA
+      - VENDAVAL
+      - RAIO
+      type: string
+    Loss:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        cpf:
+          type: string
+          maxLength: 11
+        tipo_lavoura:
+          type: string
+          maxLength: 50
+        data_colheita:
+          type: string
+          format: date
+        causa_da_perda:
+          $ref: '#/components/schemas/CausaDaPerdaEnum'
+        criado_em:
+          type: string
+          format: date-time
+          readOnly: true
+        latitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,6})?$
+        longitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+      required:
+      - causa_da_perda
+      - cpf
+      - criado_em
+      - data_colheita
+      - email
+      - id
+      - latitude
+      - longitude
+      - nome
+      - tipo_lavoura
+    PaginatedLossList:
+      type: object
+      properties:
+        total_registros:
+          type: integer
+          example: 50
+        total_paginas:
+          type: integer
+          example: 5
+        por_pagina:
+          type: integer
+          example: 10
+        links:
+          type: object
+          properties:
+            proxima:
+              type: string
+              nullable: true
+              format: uri
+              example: http://localhost:8000/api/perdas/?page=4
+            anterior:
+              type: string
+              nullable: true
+              format: uri
+              example: http://localhost:8000/api/perdas/?page=4
+        resultados:
+          type: array
+          items:
+            $ref: '#/components/schemas/Loss'
+    PatchedLoss:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        cpf:
+          type: string
+          maxLength: 11
+        tipo_lavoura:
+          type: string
+          maxLength: 50
+        data_colheita:
+          type: string
+          format: date
+        causa_da_perda:
+          $ref: '#/components/schemas/CausaDaPerdaEnum'
+        criado_em:
+          type: string
+          format: date-time
+          readOnly: true
+        latitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,6})?$
+        longitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

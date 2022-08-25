@@ -52,6 +52,7 @@ THIRD_PART_APPS = [
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
+    "django_filters"
     # "rest_framework_gis",
 ]
 
@@ -143,8 +144,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-# LANGUAGE_CODE = "pt-br"
+# LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "Etc/GMT+3"
 
@@ -178,6 +179,9 @@ REST_FRAMEWORK = {
     ),
     "PAGE_SIZE": 10,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ),
 }
 
 SPECTACULAR_SETTINGS = {

@@ -1,9 +1,7 @@
 import uuid
 
-# from django.contrib.gis.geos import Point
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
-# from django.contrib.gis.db import models
 
 
 class LossChoices(models.TextChoices):
@@ -27,7 +25,24 @@ class Loss(models.Model):
     causa_da_perda = models.CharField(
         max_length=20, choices=LossChoices.choices
     )
-    localizacao = models.JSONField()
+    # localizacao = models.JSONField()
+    # latitude = models.FloatField(max_value=90)
+    latitude = models.DecimalField(
+        max_digits=8,
+        decimal_places=6,
+        validators=[
+            MinValueValidator(-34.000000),
+            MaxValueValidator(5.500000),
+        ],
+    )
+    longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        validators=[
+            MinValueValidator(-74.000000),
+            MaxValueValidator(-35.000000),
+        ],
+    )
     criado_em = models.DateTimeField(auto_now_add=True)
 
     def save(
