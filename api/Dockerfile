@@ -14,6 +14,6 @@ WORKDIR /api
 
 COPY . /api/
 
-# RUN python /api/./manage.py collectstatic
+RUN python /api/./manage.py collectstatic
 
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+# CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
