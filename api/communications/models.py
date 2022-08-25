@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-class LossChoices(models.TextChoices):
+class CommunicationChoices(models.TextChoices):
     CHUVA_EXCESSIVA = ("CHUVA EXCESSIVA", "CHUVA EXCESSIVA")
     GEADA = ("GEADA", "GEADA")
     GRANIZO = ("GRANIZO", "GRANIZO")
@@ -13,7 +13,7 @@ class LossChoices(models.TextChoices):
     RAIO = ("RAIO", "RAIO")
 
 
-class Loss(models.Model):
+class Communication(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nome = models.CharField(max_length=255)
@@ -23,7 +23,7 @@ class Loss(models.Model):
     tipo_lavoura = models.CharField(max_length=50)
     data_colheita = models.DateField()
     causa_da_perda = models.CharField(
-        max_length=20, choices=LossChoices.choices
+        max_length=20, choices=CommunicationChoices.choices
     )
     # localizacao = models.JSONField()
     # latitude = models.FloatField(max_value=90)
@@ -55,6 +55,8 @@ class Loss(models.Model):
         self.nome = self.nome.upper()
         self.email = self.email.lower()
         self.tipo_lavoura = self.tipo_lavoura.upper()
-        super(Loss, self).save(force_insert, force_update, *args, **kwargs)
+        super(Communication, self).save(
+            force_insert, force_update, *args, **kwargs
+        )
 
     # return super().save(force_insert, force_update, using, update_fields)

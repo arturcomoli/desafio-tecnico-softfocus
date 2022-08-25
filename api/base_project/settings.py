@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -56,7 +56,7 @@ THIRD_PART_APPS = [
     # "rest_framework_gis",
 ]
 
-MY_APPS = ["losses"]
+MY_APPS = ["communications"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + MY_APPS
 
@@ -97,24 +97,31 @@ WSGI_APPLICATION = "base_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-DATABASES = {
-    "default": {
-        # "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": 5432,
+if os.getenv("TEST"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+
+elif os.getenv("DATABASE_URL"):
+    DEBUG = False
+
+else:
+    DATABASES = {
+        "default": {
+            # "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("POSTGRES_DB"),
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "HOST": "db_desafio_softfocus",
+            # "HOST": "localhost",
+            "PORT": 5432,
+        }
+    }
+    DEBUG = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

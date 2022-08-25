@@ -11,27 +11,10 @@ paths:
         name: causa_da_perda
         schema:
           type: string
-          enum:
-          - CHUVA EXCESSIVA
-          - GEADA
-          - GRANIZO
-          - RAIO
-          - SECA
-          - VENDAVAL
       - in: query
         name: cpf
         schema:
           type: string
-      - in: query
-        name: criado_em
-        schema:
-          type: string
-          format: date-time
-      - in: query
-        name: data
-        schema:
-          type: string
-          format: date
       - in: query
         name: data_colheita
         schema:
@@ -53,7 +36,7 @@ paths:
         name: nome
         schema:
           type: string
-      - name: page
+      - name: pagina
         required: false
         in: query
         description: A page number within the paginated result set.
@@ -85,6 +68,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Loss'
+            examples:
+              LossCreationExample:
+                value:
+                  nome: example
+                  email: example@mail.com
+                  cpf: '12345678911'
+                  tipo_lavoura: feijão
+                  data_colheita: 20/08/2022
+                  causa_da_perda: CHUVA EXCESSIVA
+                  latitude: 2.561234
+                  longitude: -32.987654
+                summary: Loss creation
+                description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Loss'
@@ -144,6 +140,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Loss'
+            examples:
+              LossCreationExample:
+                value:
+                  nome: example
+                  email: example@mail.com
+                  cpf: '12345678911'
+                  tipo_lavoura: feijão
+                  data_colheita: 20/08/2022
+                  causa_da_perda: CHUVA EXCESSIVA
+                  latitude: 2.561234
+                  longitude: -32.987654
+                summary: Loss creation
+                description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Loss'
@@ -179,6 +188,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedLoss'
+            examples:
+              LossCreationExample:
+                value:
+                  nome: example
+                  email: example@mail.com
+                  cpf: '12345678911'
+                  tipo_lavoura: feijão
+                  data_colheita: 20/08/2022
+                  causa_da_perda: CHUVA EXCESSIVA
+                  latitude: 2.561234
+                  longitude: -32.987654
+                summary: Loss creation
+                description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/PatchedLoss'
@@ -293,12 +315,12 @@ components:
               type: string
               nullable: true
               format: uri
-              example: http://localhost:8000/api/perdas/?page=4
+              example: https://endpoint-base.com/api/perdas/?pagina=5
             anterior:
               type: string
               nullable: true
               format: uri
-              example: http://localhost:8000/api/perdas/?page=4
+              example: https://endpoint-base.com/api/perdas/?pagina=3
         resultados:
           type: array
           items:

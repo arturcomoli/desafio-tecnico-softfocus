@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  db_desafio_softfocus:
+    image: postgres:latest
+    env_file: api/.env
+    ports:
+      - 5431:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  migration:
+    build: ./api
+    env_file: api/.env
+    command: bash -c 'while !</dev/tcp/db_desafio_softfocus/5432; do sleep; done; python manage.py migrate'
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db_desafio_softfocus
+  web:
+    build: ./api
+    env_file: api/.env
+    command: bash -c 'while !</dev/tcp/db_desafio_softfocus/5432; do sleep; done; python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./api:/api
+    stdin_open: true
+    tty: true
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_desafio_softfocus
+      - migration
+
+volumes:
+  pgdata:
