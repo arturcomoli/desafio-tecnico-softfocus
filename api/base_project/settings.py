@@ -63,6 +63,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + MY_APPS
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -109,8 +110,8 @@ if os.getenv("TEST"):
     DEBUG = True
 
 elif os.getenv("DATABASE_URL"):
-    DEBUG = False
-    # DEBUG = True
+    # DEBUG = False
+    DEBUG = True
 
 else:
     DATABASES = {
@@ -171,6 +172,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+COMPRESS_ENABLED = os.environ.get("COMPRESS_ENABLED", False)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
