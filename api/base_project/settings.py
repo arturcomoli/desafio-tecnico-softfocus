@@ -34,7 +34,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ["localhost"]
 
@@ -76,6 +76,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ROOT_URLCONF = "base_project.urls"
 
 TEMPLATES = [
@@ -107,6 +109,7 @@ if os.getenv("TEST"):
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    DEBUG = True
 
 elif os.getenv("DATABASE_URL"):
     DEBUG = False
@@ -181,9 +184,6 @@ REST_FRAMEWORK = {
     "DATE_INPUT_FORMATS": ["%d/%m/%Y"],
     "DATETIME_FORMAT": "%d/%m/%Y %H:%M:%S",
     "DATETIME_INPUT_FORMATS": ["%d/%m/%Y %H:%M:%S"],
-    # "DEFAULT_PAGINATION_CLASS": (
-    #     "rest_framework.pagination.PageNumberPagination"
-    # ),
     "DEFAULT_PAGINATION_CLASS": (
         "base_project.pagination.CustomPaginationClass"
     ),
