@@ -28,10 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://desafio-softfocus-backend.heroku.com",
-    # "http://localhost:8000",
-]
+CSRF_TRUSTED_ORIGINS = ["https://desafio-softfocus-backend.herokuapp.com"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
