@@ -109,8 +109,8 @@ if os.getenv("TEST"):
     DEBUG = True
 
 elif os.getenv("DATABASE_URL"):
-    # DEBUG = False
-    DEBUG = True
+    DEBUG = False
+    # DEBUG = True
 
 else:
     DATABASES = {
