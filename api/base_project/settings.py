@@ -205,4 +205,4 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-django_on_heroku.settings(locals(), staticfiles=False)
+django_on_heroku.settings(locals())
