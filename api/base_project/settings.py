@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 CSRF_TRUSTED_ORIGINS = [
     "https://desafio-softfocus-backend.heroku.com",
-    "http://localhost:8000",
+    # "http://localhost:8000",
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
