@@ -1,4 +1,4 @@
-import { ButtonGroup, HStack, Image, VStack } from "@chakra-ui/react";
+import { ButtonGroup, Flex, HStack, Image, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logotipo.svg";
 import { useComms } from "../../providers/comms";
@@ -8,7 +8,15 @@ const Header = () => {
   const { handleNavigate } = useComms();
 
   return (
-    <HStack w="100% " bg="gray.400" p={5} justify="space-around">
+    <Flex
+      w="100% "
+      bg="gray.400"
+      p={5}
+      justify="space-around"
+      alignItems={{ base: "center" }}
+      flexDirection={{ base: "column", md: "row" }}
+      gap={{ base: "15px" }}
+    >
       <Image src={Logo} alt="logotipo" w="200px" />
       <ButtonGroup spacing={14}>
         <Button
@@ -26,7 +34,7 @@ const Header = () => {
           Cadastros
         </Button>
       </ButtonGroup>
-    </HStack>
+    </Flex>
   );
 };
 export default Header;

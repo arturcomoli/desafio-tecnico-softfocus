@@ -15,10 +15,8 @@ const CustomDatePicker = ({
   error,
   helperText,
   onChange,
-  // name,
   label,
-}: // register,
-ICustomDatePickerProps) => {
+}: ICustomDatePickerProps) => {
   return (
     <FormControl isInvalid={!!error}>
       <FormLabel mb={1} color={"gray.900"}>

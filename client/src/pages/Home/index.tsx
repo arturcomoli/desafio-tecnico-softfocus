@@ -12,44 +12,11 @@ import CustomDatePicker from "../../components/CustomDatePicker";
 import Select from "../../components/Select";
 import Button from "../../components/Button";
 import { useComms } from "../../providers/comms";
-
-const schema = yup.object().shape({
-  nome: yup.string().required("Campo obrigatório"),
-  email: yup
-    .string()
-    .email("E-mail em formato inválido")
-    .required("Campo obrigatório"),
-  cpf: yup.string().required("Campo obrigatório"),
-  tipo_lavoura: yup.string().required("Campo obrigatório"),
-  data_colheita: yup
-    .string()
-    .required("Campo obrigatório")
-    .transform((value: Date, originalValue) => {
-      let newValue = new Date(value);
-      let date = new Intl.DateTimeFormat("pt-BR").format(newValue);
-
-      return date;
-    }),
-  causa_da_perda: yup
-    .string()
-    .required("Campo obrigatório")
-    .min(1, "Campo obrigatório"),
-  latitude: yup
-    .number()
-    .typeError("Campo obrigatório")
-    .min(-34, "Este campo deve estar entre -34.000000 e 5.500000")
-    .max(5.5, "Este campo deve estar entre -34.000000 e 5.500000")
-    .required("Campo obrigatório"),
-  longitude: yup
-    .number()
-    .typeError("Campo obrigatório")
-    .min(-74, "Este campo deve estar entre -74.000000 e -35.000000")
-    .max(-35, "Este campo deve estar entre -74.000000 e -35.000000")
-    .required("Campo obrigatório"),
-});
+import ErrorModal from "../../components/ErrorModal";
+import { schema } from "./validations";
 
 const Home = () => {
-  const { submitComm } = useComms();
+  const { submitComm, handleNavigate } = useComms();
 
   const {
     register,
@@ -57,11 +24,11 @@ const Home = () => {
     control,
     formState: { errors },
   } = useForm<IRegistrationData>({ resolver: yupResolver(schema) });
-  console.log(errors);
   return (
     <Background>
       <Header />
       <VStack
+        w={{ base: "90%", sm: "auto" }}
         as="form"
         onSubmit={handleSubmit(submitComm)}
         border={"2px"}
@@ -86,7 +53,7 @@ const Home = () => {
             <Input
               label="E-mail do Solicitante"
               name="email"
-              helperText="Ex.: joao.silva@email.com.br"
+              helperText="Ex.: joao@email.com.br"
               error={errors.email?.message}
               register={register}
             />
@@ -113,15 +80,12 @@ const Home = () => {
               control={control}
               name="data_colheita"
               render={({ field }) => (
-                // <DatePicker {...field} onChange={(e) => field.onChange(e)} />
                 <CustomDatePicker
                   {...field}
                   onChange={(e: any) => field.onChange(e)}
                   label="Data da Colheita"
                   helperText="Ex.: 20/08/2022"
-                  // name="data_colheita"
                   error={errors.data_colheita?.message}
-                  // register={register}
                 />
               )}
             />
@@ -162,14 +126,19 @@ const Home = () => {
           </VStack>
         </Flex>
         <ButtonGroup>
-          <Button type="button" bg="orange.500">
-            Ir para Cadastro
+          <Button
+            type="button"
+            bg="orange.500"
+            onClick={() => handleNavigate("/cadastros")}
+          >
+            Ir para Cadastros
           </Button>
           <Button type="submit" bg="blue.200">
-            Enviar Comunicação
+            Enviar
           </Button>
         </ButtonGroup>
       </VStack>
+      <ErrorModal />
     </Background>
   );
 };
