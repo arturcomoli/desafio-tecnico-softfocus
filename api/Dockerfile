@@ -8,7 +8,7 @@ WORKDIR /api
 
 COPY . /api/
 
-COPY ./staticfiles /api/
+COPY ./staticfiles .
 
 COPY ./requirements.txt .
 
