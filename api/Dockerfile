@@ -8,8 +8,6 @@ WORKDIR /api
 
 COPY . /api/
 
-COPY ./staticfiles .
-
 COPY ./requirements.txt .
 
 RUN pip install -U pip
