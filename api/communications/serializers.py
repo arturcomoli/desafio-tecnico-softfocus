@@ -2,7 +2,7 @@ from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 
 from .models import Communication
-from .utils import warning_in_creation
+from .utils import warning_in_creation, warning_in_update
 
 
 @extend_schema_serializer(
@@ -53,6 +53,17 @@ class CommunicationSerializer(serializers.ModelSerializer):
 
         instance = self.context["request"].data
         queryset = Communication.objects.filter(data_colheita=value)
-        warning_in_creation(queryset, instance)
+        if self.context["request"].method == "POST":
+            warning_in_creation(queryset, instance)
+
+        if (
+            self.context["request"].method == "PATCH"
+            or self.context["request"].method == "PUT"
+        ):
+            instance_id = self.context["request"].parser_context["kwargs"][
+                "pk"
+            ]
+
+            warning_in_update(queryset, instance, instance_id)
 
         return value

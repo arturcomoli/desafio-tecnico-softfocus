@@ -124,7 +124,7 @@ class TestLossViews(APITestCase):
             f'/api/perdas/id/{criacao.data["id"]}/', data=mock2
         )
 
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_perda(self):
         criacao = self.client.post(f"/api/perdas/", data=mock1)
