@@ -2,14 +2,19 @@ import { IRegistrationData } from "../../pages/Home/interfaces";
 
 export interface CommsContextData {
   isOpen: boolean;
+  loading: boolean;
   errorInfo: IErrorInfoData;
+  comms: IPostResponse[];
   onOpen: () => void;
   onClose: () => void;
+  nextPage: () => void;
+  previousPage: () => void;
   handleNavigate: (path: string) => void;
   submitComm: (data: IRegistrationData) => void;
 }
 
 export interface IPostResponse extends IRegistrationData {
+  id: string;
   criado_em: string;
 }
 

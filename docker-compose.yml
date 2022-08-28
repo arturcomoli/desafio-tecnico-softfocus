@@ -8,6 +8,9 @@ services:
       - 5431:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
+    tty: true
+    networks:
+      - apiwebnetwork
 
   migration:
     build: ./api
@@ -17,8 +20,12 @@ services:
       - ./api:/api
     depends_on:
       - db_desafio_softfocus
-  web:
+    networks:
+      - apiwebnetwork
+
+  api:
     build: ./api
+    restart: always
     env_file: api/.env
     command: bash -c 'while !</dev/tcp/db_desafio_softfocus/5432; do sleep; done; python manage.py runserver 0.0.0.0:8000'
     volumes:
@@ -30,6 +37,25 @@ services:
     depends_on:
       - db_desafio_softfocus
       - migration
+    networks:
+      - apiwebnetwork
+
+  client:
+    build: ./client
+    ports:
+      - 3000:3000
+    restart: always
+    # volumes:
+    #   - ./client:/client
+    #   - /client/node_modules
+    links:
+      - api
+    networks:
+      - apiwebnetwork
+
+networks:
+  apiwebnetwork:
+    driver: bridge
 
 volumes:
   pgdata:

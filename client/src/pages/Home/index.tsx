@@ -16,7 +16,7 @@ import ErrorModal from "../../components/ErrorModal";
 import { schema } from "./validations";
 
 const Home = () => {
-  const { submitComm, handleNavigate } = useComms();
+  const { submitComm, handleNavigate, loading } = useComms();
 
   const {
     register,
@@ -133,7 +133,7 @@ const Home = () => {
           >
             Ir para Cadastros
           </Button>
-          <Button type="submit" bg="blue.200">
+          <Button type="submit" bg="blue.200" isLoading={loading}>
             Enviar
           </Button>
         </ButtonGroup>
