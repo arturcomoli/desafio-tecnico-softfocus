@@ -1,3 +1,5 @@
+import { IPatchInterface } from "../../components/Card/interfaces";
+import { IFilterInterface } from "../../pages/Cadastros/interfaces";
 import { IRegistrationData } from "../../pages/Home/interfaces";
 
 export interface CommsContextData {
@@ -11,6 +13,10 @@ export interface CommsContextData {
   previousPage: () => void;
   handleNavigate: (path: string) => void;
   submitComm: (data: IRegistrationData) => void;
+  cleanFilters: () => void;
+  getFilterData: (data: IFilterInterface) => void;
+  submitPatch: (data: IPatchInterface, id: string) => Promise<void>;
+  deleteComm: (id: string) => Promise<void>;
 }
 
 export interface IPostResponse extends IRegistrationData {
@@ -38,3 +44,8 @@ export interface IGetResponse {
   total_registros: number;
   resultados: IPostResponse[];
 }
+
+// export interface IPatchdata {
+//   data: IPatchInterface;
+//   id: string;
+// }

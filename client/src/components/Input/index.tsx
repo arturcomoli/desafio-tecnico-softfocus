@@ -23,7 +23,7 @@ const Input = ({
 }: IInputprops) => {
   return (
     <FormControl isInvalid={!!error}>
-      <FormLabel mb={1} color={"gray.900"}>
+      <FormLabel mb={0} color={"gray.900"}>
         {label}
       </FormLabel>
       <InputGroup>

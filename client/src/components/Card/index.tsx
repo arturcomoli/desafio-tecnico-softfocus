@@ -1,6 +1,7 @@
-import { ButtonGroup, Text, VStack } from "@chakra-ui/react";
+import { ButtonGroup, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { IPostResponse } from "../../providers/comms/interfaces";
 import Button from "../Button";
+import DetailsModal from "./DetailsModal";
 
 const Card = ({
   nome,
@@ -14,6 +15,8 @@ const Card = ({
   criado_em,
   id,
 }: IPostResponse) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <VStack as="li" p={3} border="2px solid" borderRadius="md" minW="325px">
       <Text>
@@ -70,7 +73,23 @@ const Card = ({
         </Text>{" "}
         {criado_em}
       </Text>
-      <Button bg="blue.300">Ver Detalhes</Button>
+      <Button bg="blue.300" onClick={onOpen}>
+        Ver Detalhes
+      </Button>
+      <DetailsModal
+        nome={nome}
+        cpf={cpf}
+        email={email}
+        tipo_lavoura={tipo_lavoura}
+        data_colheita={data_colheita}
+        causa_da_perda={causa_da_perda}
+        latitude={latitude}
+        longitude={longitude}
+        criado_em={criado_em}
+        id={id}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </VStack>
   );
 };

@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Providers>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} portalZIndex={1000}>
           <Toaster />
           <App />
         </ChakraProvider>

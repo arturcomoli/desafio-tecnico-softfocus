@@ -10,6 +10,7 @@ import { ICustomDatePickerProps } from "./interfaces";
 import "moment/locale/pt-br";
 import locale from "antd/es/date-picker/locale/pt_BR";
 import { DatePicker } from "antd";
+import { useLocation } from "react-router-dom";
 
 const CustomDatePicker = ({
   error,
@@ -17,6 +18,8 @@ const CustomDatePicker = ({
   onChange,
   label,
 }: ICustomDatePickerProps) => {
+  const location = useLocation();
+
   return (
     <FormControl isInvalid={!!error}>
       <FormLabel mb={1} color={"gray.900"}>
@@ -34,8 +37,14 @@ const CustomDatePicker = ({
         <DatePicker
           locale={locale}
           format="DD/MM/yyyy"
-          style={{ width: "100%", background: "transparent" }}
+          style={{
+            width: "100%",
+            background: "transparent",
+            zIndex: location.pathname === "/" ? 500 : 999999999,
+          }}
           onChange={onChange}
+
+          // defaultValue={defaultValue}
         />
       </Box>
       {!error ? (

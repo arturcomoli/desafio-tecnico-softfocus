@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 export interface IInputprops extends InputProps {
   as?: any;
   mask?: string;
-  label: string;
+  label?: string;
   icon?: IconType;
   name: string;
   register: any;
