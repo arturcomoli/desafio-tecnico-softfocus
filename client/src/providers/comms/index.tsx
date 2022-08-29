@@ -1,8 +1,10 @@
+import React from "react";
+
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { useDisclosure } from "@chakra-ui/react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { IRegistrationData } from "../../pages/Home/interfaces";
 import api from "../../services/api";
@@ -41,6 +43,7 @@ export const CommsProvider = ({ children }: IChildren) => {
 
   const handleNavigate = (path: string): void => {
     navigate(path, { replace: true });
+    onClose();
   };
 
   const nextPage = (): void => {
@@ -103,7 +106,7 @@ export const CommsProvider = ({ children }: IChildren) => {
 
   const submitComm = async (data: IRegistrationData): Promise<void> => {
     setLoading(true);
-    setErrorInfo({} as IErrorInfoData);
+    // setErrorInfo({} as IErrorInfoData);
     try {
       const { data: apiData } = await api.post<IPostResponse>(
         "/api/perdas/",
@@ -114,7 +117,7 @@ export const CommsProvider = ({ children }: IChildren) => {
       setLoading(false);
     } catch (error: any) {
       toast.error("Ops, algo deu errado!");
-      setErrorInfo(error.response.data);
+      setErrorInfo(error.response.data.data_colheita);
       onOpen();
       setLoading(false);
     }
@@ -134,8 +137,9 @@ export const CommsProvider = ({ children }: IChildren) => {
       toast.success("Cadastro atualizado com sucesso!");
     } catch (error: any) {
       console.log(error);
-      toast.error("Ops, algo deu errado!");
       setErrorInfo(error.response.data);
+      localStorage.setItem("lastConf", JSON.stringify(error.response.data));
+      toast.error("Ops, algo deu errado!");
       onOpen();
       setLoading(false);
     }
@@ -158,15 +162,23 @@ export const CommsProvider = ({ children }: IChildren) => {
   const getConflict = async (id: string | undefined): Promise<void> => {
     setLoading(true);
 
-    try {
-      const { data } = await api.get<IPostResponse>(`/api/perdas/id/${id}/`);
-      setConflictData(data);
-      setLoading(false);
-    } catch (error: any) {
-      console.log(error);
-      setLoading(false);
-    }
+    setTimeout(async () => {
+      try {
+        const { data } = await api.get<IPostResponse>(`/api/perdas/id/${id}/`);
+        setConflictData(data);
+        setLoading(false);
+      } catch (error: any) {
+        console.log(error);
+        setLoading(false);
+      }
+    }, 1500);
   };
+
+  useEffect(() => {
+    if (Object.keys(errorInfo).length) {
+      getConflict(errorInfo?.divergencia.id_da_informacao_conflitante);
+    }
+  }, [errorInfo]);
 
   useEffect(() => {
     filterComms();

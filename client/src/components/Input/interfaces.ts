@@ -8,7 +8,7 @@ export interface IInputprops extends InputProps {
   icon?: IconType;
   name: string;
   register: any;
-  helperText: string;
+  helperText?: string;
   error?: string;
   alwaysShowMask?: boolean;
 }

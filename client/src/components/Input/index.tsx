@@ -19,10 +19,12 @@ const Input = ({
   register,
   helperText,
   error,
+  m,
+  w,
   ...props
 }: IInputprops) => {
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl isInvalid={!!error} m={m} w={w}>
       <FormLabel mb={0} color={"gray.900"}>
         {label}
       </FormLabel>

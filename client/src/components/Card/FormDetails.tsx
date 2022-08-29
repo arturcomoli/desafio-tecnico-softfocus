@@ -18,7 +18,7 @@ import Input from "../Input";
 import Select from "../Select";
 import { IDetailsModal, IPatchInterface } from "./interfaces";
 import { schema } from "./validations";
-import { forwardRef, useRef } from "react";
+import { FormEvent, forwardRef, useRef } from "react";
 
 const FormDetails = ({
   nome,
@@ -100,7 +100,7 @@ const FormDetails = ({
             render={({ field }) => (
               <CustomDatePicker
                 {...field}
-                onChange={(e: any) => field.onChange(e)}
+                onChange={(e: FormEvent<HTMLInputElement>) => field.onChange(e)}
                 label="Data da Colheita"
                 helperText="Ex.: 20/08/2022"
                 error={errors.data_colheita?.message}

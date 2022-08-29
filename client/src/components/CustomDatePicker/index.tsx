@@ -17,6 +17,7 @@ const CustomDatePicker = ({
   helperText,
   onChange,
   label,
+  isDisabled,
 }: ICustomDatePickerProps) => {
   const location = useLocation();
 
@@ -43,6 +44,7 @@ const CustomDatePicker = ({
             zIndex: location.pathname === "/" ? 500 : 999999999,
           }}
           onChange={onChange}
+          disabled={isDisabled}
 
           // defaultValue={defaultValue}
         />

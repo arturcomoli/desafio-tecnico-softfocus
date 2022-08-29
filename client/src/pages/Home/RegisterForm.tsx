@@ -11,6 +11,7 @@ import Select from "../../components/Select";
 import Button from "../../components/Button";
 import ErrorModal from "../../components/ErrorModal";
 import { useComms } from "../../providers/comms";
+import { FormEvent } from "react";
 
 const RegisterForm = ({}) => {
   const { submitComm, handleNavigate, loading } = useComms();
@@ -77,7 +78,7 @@ const RegisterForm = ({}) => {
             render={({ field }) => (
               <CustomDatePicker
                 {...field}
-                onChange={(e: any) => field.onChange(e)}
+                onChange={(e: string) => field.onChange(e)}
                 label="Data da Colheita"
                 helperText="Ex.: 20/08/2022"
                 error={errors.data_colheita?.message}

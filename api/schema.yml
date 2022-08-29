@@ -57,7 +57,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedLossList'
+                type: object
+                properties:
+                  total_registros:
+                    type: integer
+                    example: 50
+                  total_paginas:
+                    type: integer
+                    example: 5
+                  por_pagina:
+                    type: integer
+                    example: 10
+                  links:
+                    type: object
+                    properties:
+                      proxima:
+                        type: string
+                        nullable: true
+                        format: uri
+                        example: https://endpoint-base.com/api/perdas/?pagina=5
+                      anterior:
+                        type: string
+                        nullable: true
+                        format: uri
+                        example: https://endpoint-base.com/api/perdas/?pagina=3
+                  resultados:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: {}
+                      description: Unspecified response body
           description: ''
     post:
       operationId: api_perdas_create
@@ -67,7 +96,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
             examples:
               LossCreationExample:
                 value:
@@ -83,21 +112,23 @@ paths:
                 description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
         required: true
       security:
       - cookieAuth: []
       - basicAuth: []
       - {}
       responses:
-        '201':
+        '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Loss'
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
           description: ''
   /api/perdas/id/{id}/:
     get:
@@ -108,7 +139,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this loss.
+        description: A UUID string identifying this communication.
         required: true
       tags:
       - api
@@ -121,7 +152,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Loss'
+                $ref: '#/components/schemas/Communication'
+              examples:
+                LossCreationExample:
+                  value:
+                    nome: example
+                    email: example@mail.com
+                    cpf: '12345678911'
+                    tipo_lavoura: feijão
+                    data_colheita: 20/08/2022
+                    causa_da_perda: CHUVA EXCESSIVA
+                    latitude: 2.561234
+                    longitude: -32.987654
+                  summary: Loss creation
+                  description: Loss creation route example
           description: ''
     put:
       operationId: api_perdas_id_update
@@ -131,7 +175,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this loss.
+        description: A UUID string identifying this communication.
         required: true
       tags:
       - api
@@ -139,7 +183,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
             examples:
               LossCreationExample:
                 value:
@@ -155,10 +199,10 @@ paths:
                 description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Loss'
+              $ref: '#/components/schemas/Communication'
         required: true
       security:
       - cookieAuth: []
@@ -169,7 +213,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Loss'
+                $ref: '#/components/schemas/Communication'
+              examples:
+                LossCreationExample:
+                  value:
+                    nome: example
+                    email: example@mail.com
+                    cpf: '12345678911'
+                    tipo_lavoura: feijão
+                    data_colheita: 20/08/2022
+                    causa_da_perda: CHUVA EXCESSIVA
+                    latitude: 2.561234
+                    longitude: -32.987654
+                  summary: Loss creation
+                  description: Loss creation route example
           description: ''
     patch:
       operationId: api_perdas_id_partial_update
@@ -179,7 +236,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this loss.
+        description: A UUID string identifying this communication.
         required: true
       tags:
       - api
@@ -187,7 +244,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedLoss'
+              $ref: '#/components/schemas/PatchedCommunication'
             examples:
               LossCreationExample:
                 value:
@@ -203,10 +260,10 @@ paths:
                 description: Loss creation route example
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedLoss'
+              $ref: '#/components/schemas/PatchedCommunication'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedLoss'
+              $ref: '#/components/schemas/PatchedCommunication'
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -216,7 +273,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Loss'
+                $ref: '#/components/schemas/Communication'
+              examples:
+                LossCreationExample:
+                  value:
+                    nome: example
+                    email: example@mail.com
+                    cpf: '12345678911'
+                    tipo_lavoura: feijão
+                    data_colheita: 20/08/2022
+                    causa_da_perda: CHUVA EXCESSIVA
+                    latitude: 2.561234
+                    longitude: -32.987654
+                  summary: Loss creation
+                  description: Loss creation route example
           description: ''
     delete:
       operationId: api_perdas_id_destroy
@@ -226,7 +296,7 @@ paths:
         schema:
           type: string
           format: uuid
-        description: A UUID string identifying this loss.
+        description: A UUID string identifying this communication.
         required: true
       tags:
       - api
@@ -248,7 +318,7 @@ components:
       - VENDAVAL
       - RAIO
       type: string
-    Loss:
+    Communication:
       type: object
       properties:
         id:
@@ -296,36 +366,7 @@ components:
       - longitude
       - nome
       - tipo_lavoura
-    PaginatedLossList:
-      type: object
-      properties:
-        total_registros:
-          type: integer
-          example: 50
-        total_paginas:
-          type: integer
-          example: 5
-        por_pagina:
-          type: integer
-          example: 10
-        links:
-          type: object
-          properties:
-            proxima:
-              type: string
-              nullable: true
-              format: uri
-              example: https://endpoint-base.com/api/perdas/?pagina=5
-            anterior:
-              type: string
-              nullable: true
-              format: uri
-              example: https://endpoint-base.com/api/perdas/?pagina=3
-        resultados:
-          type: array
-          items:
-            $ref: '#/components/schemas/Loss'
-    PatchedLoss:
+    PatchedCommunication:
       type: object
       properties:
         id:

@@ -185,9 +185,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DATE_FORMAT": "%d/%m/%Y",
-    "DATE_INPUT_FORMATS": ["%d/%m/%Y"],
+    "DATE_INPUT_FORMATS": ["%d/%m/%Y", "iso-8601"],
     "DATETIME_FORMAT": "%d/%m/%Y %H:%M:%S",
-    "DATETIME_INPUT_FORMATS": ["%d/%m/%Y %H:%M:%S"],
+    "DATETIME_INPUT_FORMATS": ["%d/%m/%Y %H:%M:%S", "iso-8601"],
     "DEFAULT_PAGINATION_CLASS": (
         "base_project.pagination.CustomPaginationClass"
     ),

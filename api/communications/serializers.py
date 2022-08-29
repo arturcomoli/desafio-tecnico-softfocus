@@ -1,29 +1,35 @@
-from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiExample,
+    extend_schema_field,
+    extend_schema_serializer,
+)
 from rest_framework import serializers
 
 from .models import Communication
 from .utils import warning_in_creation, warning_in_update
 
 
-@extend_schema_serializer(
-    examples=[
-        OpenApiExample(
-            "Loss creation example",
-            summary="Loss creation",
-            description="Loss creation route example",
-            value={
-                "nome": "example",
-                "email": "example@mail.com",
-                "cpf": "12345678911",
-                "tipo_lavoura": "feijão",
-                "data_colheita": "20/08/2022",
-                "causa_da_perda": "CHUVA EXCESSIVA",
-                "latitude": 2.561234,
-                "longitude": -32.987654,
-            },
-        )
-    ],
-)
+# @extend_schema_serializer(
+#     examples=[
+#         OpenApiExample(
+#             "Loss creation example",
+#             summary="Loss creation",
+#             description="Loss creation route example",
+#             value={
+#                 "id": "328f4dd4-0bb0-49ee-8595-5b0110e69a29",
+#                 "nome": "example",
+#                 "email": "example@mail.com",
+#                 "cpf": "12345678911",
+#                 "tipo_lavoura": "feijão",
+#                 "data_colheita": "20/08/2022",
+#                 "causa_da_perda": "CHUVA EXCESSIVA",
+#                 "latitude": 2.561234,
+#                 "longitude": -40.987654,
+#             },
+#         )
+#     ],
+# )
 class CommunicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Communication
@@ -39,6 +45,7 @@ class CommunicationSerializer(serializers.ModelSerializer):
             "latitude",
             "longitude",
         ]
+        read_only_fields = ["id"]
 
     def validate_cpf(self, value):
         if len(value) < 11:
