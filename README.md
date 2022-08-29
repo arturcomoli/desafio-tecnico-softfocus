@@ -54,7 +54,7 @@
 ### ✅ Link para a demo da aplicação
 
 - [x] Backend -> <a href="https://desafio-softfocus-backend.herokuapp.com">Desafio Softfocus - Backend</a>
-- [x] Frontend -> <a href="https://desafio-tecnico-suflex-artur.vercel.app/">Desafio Suflex - Frontend</a>
+- [x] Frontend -> <a href="https://desafio-softfocus-frontend.vercel.app/">Desafio Suflex - Frontend</a>
 
 <br/>
 
@@ -85,6 +85,14 @@
 #### ✅ Tela de conflito
 
 ![image](https://user-images.githubusercontent.com/91695244/187298379-f6c13778-0e79-4f68-8777-997a1a830f19.png)
+
+<br/>
+
+#### ✅ Área suportada em latitude e longitude
+
+- [x] A área suportada para latitude e longitude está dentro dos extremos do país, ainda é possível inserir locais de países vizinhos, mas é impossível, por exemplo, inserir um local na Ásia ou Europa.
+
+![image](https://user-images.githubusercontent.com/91695244/187309943-cd1dbb4f-ae8f-47c9-bc9c-3f5686b936ad.png)
 
 <br/>
 
