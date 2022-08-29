@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://desafio-softfocus-backend.herokuapp.com",
+  baseURL: "http://localhost:8000",
   timeout: 20000,
 });
 

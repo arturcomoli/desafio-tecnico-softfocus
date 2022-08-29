@@ -121,8 +121,8 @@ else:
             "NAME": os.getenv("POSTGRES_DB"),
             "USER": os.getenv("POSTGRES_USER"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-            # "HOST": "db_desafio_softfocus",
-            "HOST": "localhost",
+            "HOST": "db_desafio_softfocus",
+            # "HOST": "localhost",
             "PORT": 5432,
         }
     }
