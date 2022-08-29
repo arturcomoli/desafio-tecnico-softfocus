@@ -88,6 +88,14 @@
 
 <br/>
 
+#### ✅ Área suportada em latitude e longitude
+
+- [x] A área suportada para latitude e longitude está dentro dos extremos do país, ainda é possível inserir locais de países vizinhos, mas é impossível, por exemplo, inserir um local na Ásia ou Europa.
+
+![image](https://user-images.githubusercontent.com/91695244/187309943-cd1dbb4f-ae8f-47c9-bc9c-3f5686b936ad.png)
+
+<br/>
+
 ### ✅ Como rodar a aplicação localmente
 
 Antes de tudo, você precisa das seguintes tecnologias:
