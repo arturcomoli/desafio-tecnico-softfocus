@@ -54,7 +54,7 @@
 ### ✅ Link para a demo da aplicação
 
 - [x] Backend -> <a href="https://desafio-softfocus-backend.herokuapp.com">Desafio Softfocus - Backend</a>
-- [x] Frontend -> <a href="https://desafio-tecnico-suflex-artur.vercel.app/">Desafio Suflex - Frontend</a>
+- [x] Frontend -> <a href="https://desafio-softfocus-frontend.vercel.app/">Desafio Suflex - Frontend</a>
 
 <br/>
 
