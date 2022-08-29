@@ -138,7 +138,7 @@ $ sudo docker compose up --build
 
 # Caso não tenha o docker instalado em sua máquina, siga as instruções abaixo:
 
-# Renomeie o arquivo .env.example para .env, ou crie um arquivo novo (.env) e popule-o com as informações do se u usuário
+# Renomeie o arquivo .env.example para .env (no diretório "api"), ou crie um arquivo novo (.env) e popule-o com as informações do seu usuário
 
 
 $ psql 'seu_usuario_postgres'
