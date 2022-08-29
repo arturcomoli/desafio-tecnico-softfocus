@@ -62,9 +62,7 @@ def warning_in_update(attrs, instance: Communication):
     if "longitude" in attrs:
         longitude = attrs["longitude"]
 
-    import ipdb
-
-    ipdb.set_trace()
+    
 
     for item in queryset:
         coords_1 = (item.latitude, item.longitude)

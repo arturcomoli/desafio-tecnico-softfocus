@@ -125,7 +125,6 @@ export const CommsProvider = ({ children }: IChildren) => {
     setErrorInfo({} as IErrorInfoData);
 
     try {
-      console.log(data, id);
       await api.patch<IPostResponse>(`/api/perdas/id/${id}/`, data);
       getComms();
       setLoading(false);
