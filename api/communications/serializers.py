@@ -25,8 +25,6 @@ from .utils import warning_in_creation, warning_in_update
     ],
 )
 class CommunicationSerializer(serializers.ModelSerializer):
-    # data_colheita = serializers.DateField(input_formats=["%d/%m/%Y"])
-
     class Meta:
         model = Communication
         fields = [
@@ -51,11 +49,23 @@ class CommunicationSerializer(serializers.ModelSerializer):
 
     def validate_data_colheita(self, value):
 
-        instance = self.context["request"].data
+        validated_data = self.context["request"].data
         queryset = Communication.objects.filter(data_colheita=value)
+        if self.context["request"].method == "POST":
+            warning_in_creation(queryset, validated_data)
+
+        return value
+
+    def validate_causa_da_perda(self, value):
+        instance = self.context["request"].data
+        queryset = Communication.objects.filter(causa_da_perda=value)
+
         if self.context["request"].method == "POST":
             warning_in_creation(queryset, instance)
 
+        return value
+
+    def validate(self, attrs):
         if (
             self.context["request"].method == "PATCH"
             or self.context["request"].method == "PUT"
@@ -63,7 +73,8 @@ class CommunicationSerializer(serializers.ModelSerializer):
             instance_id = self.context["request"].parser_context["kwargs"][
                 "pk"
             ]
+            instance = Communication.objects.get(pk=instance_id)
+            warning_in_update(attrs, instance)
 
-            warning_in_update(queryset, instance, instance_id)
-
-        return value
+            return super().validate(attrs)
+        return super().validate(attrs)
