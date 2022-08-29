@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { useDisclosure } from "@chakra-ui/react";
 import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { IRegistrationData } from "../../pages/Home/interfaces";
 import api from "../../services/api";

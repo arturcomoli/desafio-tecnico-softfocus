@@ -100,7 +100,7 @@ const FormDetails = ({
             render={({ field }) => (
               <CustomDatePicker
                 {...field}
-                onChange={(e: FormEvent<HTMLInputElement>) => field.onChange(e)}
+                onChange={(e: string) => field.onChange(e)}
                 label="Data da Colheita"
                 helperText="Ex.: 20/08/2022"
                 error={errors.data_colheita?.message}

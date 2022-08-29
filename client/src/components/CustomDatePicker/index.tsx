@@ -41,7 +41,11 @@ const CustomDatePicker = ({
           style={{
             width: "100%",
             background: "transparent",
-            zIndex: location.pathname === "/" ? 500 : 999999999,
+            zIndex:
+              location.pathname === "/" ||
+              location.pathname.includes("/verificar-conflito/")
+                ? 500
+                : 999999999,
           }}
           onChange={onChange}
           disabled={isDisabled}
