@@ -78,7 +78,6 @@ const ErrorModal = () => {
                     `/verificar-conflito/${errorInfo.divergencia?.id_da_informacao_conflitante}`
                   )
                 }
-                // variant="ghost"
                 colorScheme={"red"}
               >
                 Verificar Conflito

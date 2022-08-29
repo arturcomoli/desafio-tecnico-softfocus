@@ -7,6 +7,7 @@ export interface CommsContextData {
   loading: boolean;
   errorInfo: IErrorInfoData;
   comms: IPostResponse[];
+  conflictData: IPostResponse;
   onOpen: () => void;
   onClose: () => void;
   nextPage: () => void;
@@ -17,6 +18,7 @@ export interface CommsContextData {
   getFilterData: (data: IFilterInterface) => void;
   submitPatch: (data: IPatchInterface, id: string) => Promise<void>;
   deleteComm: (id: string) => Promise<void>;
+  getConflict: (id: string | undefined) => Promise<void>;
 }
 
 export interface IPostResponse extends IRegistrationData {

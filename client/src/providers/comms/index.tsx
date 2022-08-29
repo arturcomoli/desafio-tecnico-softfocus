@@ -31,6 +31,9 @@ export const CommsProvider = ({ children }: IChildren) => {
   const [filterData, setFilterData] = useState<IFilterInterface>(
     {} as IFilterInterface
   );
+  const [conflictData, setConflictData] = useState<IPostResponse>(
+    {} as IPostResponse
+  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -111,7 +114,7 @@ export const CommsProvider = ({ children }: IChildren) => {
       setLoading(false);
     } catch (error: any) {
       toast.error("Ops, algo deu errado!");
-      setErrorInfo(error.response.data.data_colheita);
+      setErrorInfo(error.response.data);
       onOpen();
       setLoading(false);
     }
@@ -132,13 +135,13 @@ export const CommsProvider = ({ children }: IChildren) => {
     } catch (error: any) {
       console.log(error);
       toast.error("Ops, algo deu errado!");
-      setErrorInfo(error.response.data.data_colheita);
+      setErrorInfo(error.response.data);
       onOpen();
       setLoading(false);
     }
   };
 
-  const deleteComm = async (id: string): Promise<void> => {
+  const deleteComm = async (id: string | undefined): Promise<void> => {
     setLoading(true);
 
     try {
@@ -148,6 +151,19 @@ export const CommsProvider = ({ children }: IChildren) => {
       toast.success("Comunicação deletada com sucesso!");
     } catch (error) {
       toast.error("Ops, algo deu errado!");
+      setLoading(false);
+    }
+  };
+
+  const getConflict = async (id: string | undefined): Promise<void> => {
+    setLoading(true);
+
+    try {
+      const { data } = await api.get<IPostResponse>(`/api/perdas/id/${id}/`);
+      setConflictData(data);
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error);
       setLoading(false);
     }
   };
@@ -174,6 +190,8 @@ export const CommsProvider = ({ children }: IChildren) => {
         getFilterData,
         submitPatch,
         deleteComm,
+        getConflict,
+        conflictData,
       }}
     >
       {children}
